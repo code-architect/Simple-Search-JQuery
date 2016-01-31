@@ -2,39 +2,63 @@
 <html>
 <head>
 	<title></title>	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
-	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+	<script src="../jquery-1.12.0.js"></script>
 </head>
     <body>
        
        <script>
-       
+           
+        
+        // document ready function
            $(document).ready(function(){
-              
+               
+               
+               // searching data
                $('#search').keyup(function(){
                    
                    var search = $('#search').val();
                    
                    $.ajax({
-                       url:     'search.php',
-                       data:    {search:search},
-                       type:    'POST',
-                       success: function(data){
+                       url:'search.php',
+                       data:{search:search},
+                       type: 'POST',
+                       success:function(data){
                            
                            if(!data.error){
                                $('#result').html(data);
-                               
                            }
                        }
                    });
-               });               
+               });
+               // searching data ends
+               //-------------------------------------------------//
+               
+               
+            // inserting data
+            $("#add-data-form").submit(function(evt){
+
+                evt.preventDefault();
+                
+                var postData = $(this).serialize();
+                var url      = $(this).attr('action');
+                
+                $.post(url, postData, function(php_data){
+                    
+                    $('#result-data').html(php_data);
+                    
+                });
+
+            });
+           // inserting data ends
+               
            });
-           
-           
+                      
        </script>
+       
         
          <div id="container" class="col-md-6 col-md-offset-3 test center">
-            
+            <div class="row">
                 <h2>Search our Database</h2>
                 <input class="form-control" type="text" name="search" id="search" placeholder="Search our database">
                 <br><br><br>
@@ -42,6 +66,26 @@
                 <h2 class="bg-success" id="result">
                     
                 </h2>
+            </div>
+            
+            <div class="row">
+                
+                <form method="post" id="add-data-form" class="col-xs-6" action="add_data.php">
+                   
+                    <div class="form-group">
+                        <input type="text" name="sword_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add Data" class="btn btn-primary">
+                    </div>
+                    
+                </form>
+                        
+            </div>
+            
+            <div class="col-xs-6">
+                <div id="result-data"></div>
+            </div>
              
              
          </div>        

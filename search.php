@@ -1,15 +1,13 @@
 <?php
+include_once('db.php');
 
-$conn = mysqli_connect('localhost', 'root','', 'oophp');
+$search = $_POST['search']; 
 
-$search = $_POST['search'];  
-
-$findName = 'name';
-$tableName = 'names';
+$fieldName = 'name';
 
 if(!empty($search)){
     
-    $query = "select $findName from $tableName where $findName like '$search%'";
+    $query = "select $fieldName from $tableName where $fieldName like '$search%'";
     
     $result = mysqli_query($conn, $query);
     
@@ -24,12 +22,15 @@ if(!empty($search)){
         
         $name = $row['name'];
         
+        
         echo '<ul class = "list-unstyled">';
         
         echo '<li>'.$name.'</li>'; 
         
         echo '</ul>';
-    }   
+    }
+    
+    
     
 }
 
