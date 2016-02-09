@@ -58,7 +58,7 @@
         setInterval(function(){
             
             updateSword();
-        }, 1000);
+        }, 5000);
         
         function updateSword(){
         
@@ -97,7 +97,8 @@
                 <form method="post" id="add-data-form" class="col-xs-6" action="add_data.php">
                    
                     <div class="form-group">
-                        <input type="text" name="sword_name" class="form-control">
+                       <label for="sword_name">Enter Sword Name</label>
+                        <input type="text" name="sword_name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Add Data" class="btn btn-primary">
