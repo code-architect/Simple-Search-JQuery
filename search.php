@@ -11,6 +11,8 @@ if(!empty($search)){
     
     $result = mysqli_query($conn, $query);
     
+    $count = mysqli_num_rows($result);
+    
     
     if(!$result){
         
@@ -18,18 +20,25 @@ if(!empty($search)){
     }
     
     
-    while($row = mysqli_fetch_array($result)){
+    if($count <= 0){
         
-        $name = $row['name'];
+        echo "Sorry Sword Not Fount";
         
-        
-        echo '<ul class = "list-unstyled">';
-        
-        echo '<li>'.$name.'</li>'; 
-        
-        echo '</ul>';
-    }
+    }else{ 
     
+        while($row = mysqli_fetch_array($result)){
+
+            $name = $row['name'];
+
+
+            echo '<ul class = "list-unstyled">';
+
+            echo '<li>'.$name.'</li>'; 
+
+            echo '</ul>';
+        }
+    }
+
     
     
 }
