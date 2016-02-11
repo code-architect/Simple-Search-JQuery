@@ -20,17 +20,19 @@ while($row = mysqli_fetch_array($query_data_info)){
 ?>
 <script>
  //$("#action-container").hide();
+     $(document).ready(function(){
                
-      $(".name-link").on('click', function(){
-          
-          $("#action-container").show();
-          
-          var id = $(this).attr("rel");
-          
-          $.post("process.php", {id: id}, function(data){
-              
-              $("#action-container").html(data);
+          $(".name-link").on('click', function(){
+
+              $("#action-container").show();
+
+              var id = $(this).attr("rel");
+
+              $.post("process.php", {id: id}, function(data){
+
+                  $("#action-container").html(data);
+              });          
           });
-          
-      });
+         
+     });
 </script>
