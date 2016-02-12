@@ -57,9 +57,12 @@ if(isset($_POST['id'])){
 
     while($row = mysqli_fetch_array($query_data_info)){
         
+        
+            echo '<p id="feedback" class="bg-success"></p>';
             echo "<input type = 'text' rel = '".$row['id']."' class= 'form-control title-input' value = '".$row['name']."'><br>";
             echo "<input type = 'button' class = 'btn btn-success sword_update' value = 'Update'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-            echo "<input type = 'button' rel = '".$row['id']."' class = 'btn btn-danger sword_delete' value = 'Delete'>";            
+            echo "<input type = 'button' rel = '".$row['id']."' class = 'btn btn-danger sword_delete' value = 'Delete'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; 
+            echo "<input type = 'button' class = 'btn btn-close' value = 'Close'>";
         
     }
 }
@@ -90,26 +93,40 @@ if(isset($_POST['id'])){
           $.post("process.php", {id: id, title: title, updatethis: updatethis}, function(data){
               
               $("#feedback").text("Updated Successfully");
+              
           });
       });
+      // Update button function ends
+    
         
         
-     // Delete button function     
-          
         
+        
+     // Delete button function  
       $(".sword_delete").on('click', function(){
           
-          id = $(this).attr('rel');
+          if(confirm('Are You Sure You Want To Delete This???')){
           
-          $.post("process.php", {id: id, deletethis: deletethis}, function(data){
-              
-              //$("#feedback").text("Deleted Successfully");
-              alert("Data Deleted");
-              
-               $("#action-container").hide();
-          });
+              id = $(this).attr('rel');
+
+              $.post("process.php", {id: id, deletethis: deletethis}, function(data){
+
+                  //$("#feedback").text("Deleted Successfully");                 
+
+                   $("#action-container").hide();
+              });
+          }
       });
-      
+     // Delete button function ends
+        
+        
+     // Close button function 
+     $(".btn-close").on('click', function(){
+     
+        $("#action-container").hide();
+     });
+        
+        
        
     });
     
