@@ -17,10 +17,29 @@ if(isset($_POST['updatethis'])){
         die("Falid To Update".mysqli_error($conn));
     }
     
-}  
-    
-
+}
 // Update Data ends **/
+
+
+
+
+// Delete Data **/
+if(isset($_POST['deletethis'])){
+    
+    $id     =    mysqli_real_escape_string($conn,$_POST['id']);
+   
+    
+    $query = "DELETE FROM $tableName WHERE id = $id";
+    
+    $result_set = mysqli_query($conn, $query);
+    
+    if(!$result_set){
+        die("Falid To Update".mysqli_error($conn));
+    }
+    
+}
+
+
 
 
 // Display data on click **/
@@ -40,7 +59,7 @@ if(isset($_POST['id'])){
         
             echo "<input type = 'text' rel = '".$row['id']."' class= 'form-control title-input' value = '".$row['name']."'><br>";
             echo "<input type = 'button' class = 'btn btn-success sword_update' value = 'Update'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-            echo "<input type = 'button' class = 'btn btn-danger sword_delete' value = 'Delete'>";            
+            echo "<input type = 'button' rel = '".$row['id']."' class = 'btn btn-danger sword_delete' value = 'Delete'>";            
         
     }
 }
@@ -71,6 +90,23 @@ if(isset($_POST['id'])){
           $.post("process.php", {id: id, title: title, updatethis: updatethis}, function(data){
               
               $("#feedback").text("Updated Successfully");
+          });
+      });
+        
+        
+     // Delete button function     
+          
+        
+      $(".sword_delete").on('click', function(){
+          
+          id = $(this).attr('rel');
+          
+          $.post("process.php", {id: id, deletethis: deletethis}, function(data){
+              
+              //$("#feedback").text("Deleted Successfully");
+              alert("Data Deleted");
+              
+               $("#action-container").hide();
           });
       });
       
